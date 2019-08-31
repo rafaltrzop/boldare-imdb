@@ -11,11 +11,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'login',
-    component: FooComponent
-    // component: LoginComponent
-  },
-  {
     path: 'movies',
     component: FooComponent,
     //   component: MoviesComponent,
