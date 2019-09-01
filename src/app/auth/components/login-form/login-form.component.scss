@@ -1,3 +1,20 @@
-.icon {
-  margin-left: 12px;
+.header {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__icon {
+    margin: 0 8px;
+  }
+
+  &__button {
+    display: inline-block !important; // Firefox 68 fix
+  }
+
+  &__submit {
+    align-self: flex-end;
+  }
 }

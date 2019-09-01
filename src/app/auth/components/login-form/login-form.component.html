@@ -1,52 +1,65 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <p>
-    <mat-form-field appearance="outline">
-      <mat-label>
-        Login
-      </mat-label>
-      <input matInput type="email" formControlName="login" required />
-      <mat-icon matSuffix class="icon">
-        person
-      </mat-icon>
-      <mat-error *ngIf="login.errors?.required">
-        This field is required
-      </mat-error>
-      <mat-error *ngIf="login.errors?.email">
-        This is not a valid email address
-      </mat-error>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="outline">
-      <mat-label>
-        Password
-      </mat-label>
-      <input
-        matInput
-        [type]="hidePassword ? 'password' : 'text'"
-        formControlName="password"
-        required
-      />
-      <button
-        type="button"
-        mat-icon-button
-        matSuffix
-        (click)="togglePasswordVisibility()"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hidePassword"
-      >
-        <mat-icon>
-          {{ hidePassword ? "visibility_off" : "visibility" }}
+<div class="row justify-content-center">
+  <div class="col-sm-8 col-md-6 col-lg-5 col-xl-4">
+    <h2 class="header">
+      Login
+    </h2>
+    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>
+          Login
+        </mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="login"
+          required
+          autofocus
+        />
+        <mat-icon matSuffix class="form__icon">
+          person
         </mat-icon>
+        <mat-error *ngIf="login.errors?.required">
+          This field is required
+        </mat-error>
+        <mat-error *ngIf="login.errors?.email">
+          This is not a valid email address
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>
+          Password
+        </mat-label>
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          required
+        />
+        <button
+          type="button"
+          class="form__button"
+          mat-icon-button
+          matSuffix
+          (click)="togglePasswordVisibility()"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePassword"
+        >
+          <mat-icon>
+            {{ hidePassword ? "visibility_off" : "visibility" }}
+          </mat-icon>
+        </button>
+        <mat-error *ngIf="password.errors?.required">
+          This field is required
+        </mat-error>
+      </mat-form-field>
+      <button
+        type="submit"
+        class="form__submit"
+        color="primary"
+        mat-stroked-button
+      >
+        Log in
       </button>
-      <mat-error *ngIf="password.errors?.required">
-        This field is required
-      </mat-error>
-    </mat-form-field>
-  </p>
-  <p>
-    <button type="submit" color="primary" mat-stroked-button>
-      Log in
-    </button>
-  </p>
-</form>
+    </form>
+  </div>
+</div>
