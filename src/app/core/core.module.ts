@@ -2,14 +2,13 @@ import { NgModule } from '@angular/core';
 // import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { AppComponent } from './containers';
+import { AppComponent, NotFoundPageComponent } from './containers';
 
 @NgModule({
   imports: [
     // CommonModule,
     RouterModule
   ],
-  declarations: [AppComponent],
-  exports: [AppComponent]
+  declarations: [AppComponent, NotFoundPageComponent]
 })
 export class CoreModule {}

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from './auth/services';
+
+import { NotFoundPageComponent } from './core/containers';
 import { FooComponent } from './foo.component';
 
 const routes: Routes = [
@@ -25,8 +27,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/'
-    // component: PageNotFoundComponent
+    component: NotFoundPageComponent
   }
 ];
 
