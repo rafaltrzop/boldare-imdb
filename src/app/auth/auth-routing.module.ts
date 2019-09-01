@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginFormComponent } from './components';
+import { LoginFormComponent } from '@app/auth/components';
 
 const routes: Routes = [
   {

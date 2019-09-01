@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from './auth/services';
+import { AuthGuard } from '@app/auth/services';
 
-import { NotFoundPageComponent } from './core/containers';
-import { FooComponent } from './foo.component';
+import { NotFoundPageComponent } from '@app/core/containers';
+import { FooComponent } from '@app/foo.component';
 
 const routes: Routes = [
   {

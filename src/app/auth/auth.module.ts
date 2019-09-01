@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { AuthRoutingModule } from './auth-routing.module';
+import { AuthRoutingModule } from '@app/auth/auth-routing.module';
 
-import { LoginFormComponent } from './components';
+import { LoginFormComponent } from '@app/auth/components';
 
 @NgModule({
   imports: [AuthRoutingModule],

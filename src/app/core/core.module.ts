@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { MaterialModule } from '../material';
+import { MaterialModule } from '@app/material';
 
-import { AppComponent, NotFoundPageComponent } from './containers';
+import { AppComponent, NotFoundPageComponent } from '@app/core/containers';
 
 @NgModule({
   imports: [RouterModule, MaterialModule],
