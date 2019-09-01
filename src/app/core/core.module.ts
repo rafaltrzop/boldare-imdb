@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
-// import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
+import { MaterialModule } from '../material';
 
 import { AppComponent, NotFoundPageComponent } from './containers';
 
 @NgModule({
-  imports: [
-    // CommonModule,
-    RouterModule
-  ],
+  imports: [RouterModule, MaterialModule],
   declarations: [AppComponent, NotFoundPageComponent]
 })
 export class CoreModule {}
