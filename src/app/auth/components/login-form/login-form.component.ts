@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
+
+import { Credentials } from '@app/auth/models';
 
 @Component({
   selector: 'app-login-form',
@@ -17,6 +19,7 @@ export class LoginFormComponent {
     login: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
+  @Output() submitted = new EventEmitter<Credentials>();
 
   get login(): AbstractControl {
     return this.form.get('login');
@@ -32,8 +35,7 @@ export class LoginFormComponent {
 
   onSubmit(): void {
     if (this.form.valid) {
-      alert('submit valid form');
+      this.submitted.emit(this.form.value);
     }
-    alert('submit form completed');
   }
 }
