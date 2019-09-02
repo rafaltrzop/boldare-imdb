@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AuthModule } from '@app/auth';
 import { AppRoutingModule } from '@app/app-routing.module';
@@ -32,6 +33,7 @@ import { environment } from '../environments/environment'; // TODO: add @env ali
       name: 'Boldare IMDb',
       logOnly: environment.production
     }),
+    EffectsModule.forRoot([]),
     CoreModule
   ],
   bootstrap: [AppComponent]
