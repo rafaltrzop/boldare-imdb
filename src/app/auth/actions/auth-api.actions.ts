@@ -10,5 +10,5 @@ export const loginSuccess = createAction(
 
 export const loginFailure = createAction(
   '[Auth API] Login Failure',
-  props<ApiError>()
+  props<{ error: ApiError }>()
 );

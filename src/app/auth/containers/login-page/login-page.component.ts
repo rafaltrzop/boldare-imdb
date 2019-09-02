@@ -12,6 +12,7 @@ import * as fromAuth from '@app/auth/reducers';
 })
 export class LoginPageComponent {
   pending$ = this.store.pipe(select(fromAuth.getLoginPagePending));
+  error$ = this.store.pipe(select(fromAuth.getLoginPageError));
 
   constructor(private store: Store<fromAuth.State>) {}
 

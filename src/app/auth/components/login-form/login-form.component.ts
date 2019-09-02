@@ -26,6 +26,9 @@ export class LoginFormComponent {
   @Output()
   submitted = new EventEmitter<Credentials>();
 
+  @Input()
+  error: string | null;
+
   hidePassword = true;
   form: FormGroup = new FormGroup({
     login: new FormControl('', [Validators.required, Validators.email]),

@@ -52,15 +52,18 @@
           This field is required
         </mat-error>
       </mat-form-field>
-      <button
-        type="submit"
-        class="form__submit"
-        [disabled]="form.disabled"
-        color="primary"
-        mat-stroked-button
-      >
-        Log in
-      </button>
+      <div class="actions">
+        <p *ngIf="error" class="actions__error">{{ error }}</p>
+        <button
+          type="submit"
+          class="actions__submit"
+          [disabled]="form.disabled"
+          color="primary"
+          mat-stroked-button
+        >
+          Log in
+        </button>
+      </div>
     </form>
   </div>
 </div>
