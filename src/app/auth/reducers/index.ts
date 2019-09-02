@@ -1,4 +1,9 @@
-import { Action, combineReducers } from '@ngrx/store';
+import {
+  Action,
+  createSelector,
+  createFeatureSelector,
+  combineReducers
+} from '@ngrx/store';
 
 import * as fromRoot from '@app/reducers';
 import * as fromLoginPage from '@app/auth/reducers/login-page.reducer';
@@ -18,3 +23,16 @@ export function reducers(state: AuthState | undefined, action: Action) {
     [fromLoginPage.loginPageFeatureKey]: fromLoginPage.reducer
   })(state, action);
 }
+
+export const selectAuthState = createFeatureSelector<State, AuthState>(
+  authFeatureKey
+);
+
+export const selectLoginPageState = createSelector(
+  selectAuthState,
+  (state: AuthState) => state[fromLoginPage.loginPageFeatureKey]
+);
+export const getLoginPagePending = createSelector(
+  selectLoginPageState,
+  fromLoginPage.getPending
+);

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -14,12 +14,23 @@ import { Credentials } from '@app/auth/models';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
+  @Input()
+  set pending(isPending: boolean) {
+    if (isPending) {
+      this.form.disable();
+    } else {
+      this.form.enable();
+    }
+  }
+
+  @Output()
+  submitted = new EventEmitter<Credentials>();
+
   hidePassword = true;
   form: FormGroup = new FormGroup({
     login: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
-  @Output() submitted = new EventEmitter<Credentials>();
 
   get login(): AbstractControl {
     return this.form.get('login');

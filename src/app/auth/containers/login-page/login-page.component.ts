@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
 import { Credentials } from '@app/auth/models';
 import { LoginPageActions } from '@app/auth/actions';
@@ -11,6 +11,8 @@ import * as fromAuth from '@app/auth/reducers';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
+  pending$ = this.store.pipe(select(fromAuth.getLoginPagePending));
+
   constructor(private store: Store<fromAuth.State>) {}
 
   onSubmit(credentials: Credentials) {

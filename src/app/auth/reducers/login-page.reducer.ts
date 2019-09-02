@@ -22,3 +22,5 @@ export const reducer = createReducer(
     pending: true
   }))
 );
+
+export const getPending = (state: State) => state.pending;
