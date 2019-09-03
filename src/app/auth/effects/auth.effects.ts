@@ -13,7 +13,7 @@ import {
 import { of } from 'rxjs';
 
 import { AuthService } from '@app/auth/services';
-import { AuthApiActions, LoginPageActions } from '@app/auth/actions';
+import { AuthActions, AuthApiActions } from '@app/auth/actions';
 import { Credentials } from '@app/auth/models';
 import * as fromAuth from '@app/auth/reducers';
 
@@ -21,7 +21,7 @@ import * as fromAuth from '@app/auth/reducers';
 export class AuthEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(LoginPageActions.login),
+      ofType(AuthActions.login),
       map(action => action.credentials),
       exhaustMap((credentials: Credentials) =>
         this.authService.login(credentials).pipe(
@@ -45,6 +45,28 @@ export class AuthEffects {
           localStorage.setItem('token', token);
           // TODO: redirect action
           this.router.navigate(['/']);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  loginRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginRedirect, AuthActions.logout),
+        tap(() => {
+          this.router.navigate(['/login']);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.logout),
+        tap(() => {
+          localStorage.removeItem('token');
         })
       ),
     { dispatch: false }

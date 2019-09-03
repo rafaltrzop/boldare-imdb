@@ -1,7 +1,18 @@
 <header>
   <mat-toolbar color="primary" class="toolbar">
-    <div class="container">
+    <div class="container toolbar__container">
       <h1>Boldare IMDb</h1>
+      <button
+        *ngIf="isLoggedIn$ | async"
+        type="button"
+        mat-button
+        (click)="logout()"
+      >
+        <mat-icon>
+          power_settings_new
+        </mat-icon>
+        Log out
+      </button>
     </div>
   </mat-toolbar>
 </header>
