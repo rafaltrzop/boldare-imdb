@@ -6,6 +6,7 @@ import {
   catchError,
   concatMap,
   exhaustMap,
+  first,
   map,
   tap,
   withLatestFrom
@@ -25,6 +26,7 @@ export class AuthEffects {
       map(action => action.credentials),
       exhaustMap((credentials: Credentials) =>
         this.authService.login(credentials).pipe(
+          first(),
           map(token => AuthApiActions.loginSuccess(token)),
           catchError(({ error }) => of(AuthApiActions.loginFailure(error)))
         )
