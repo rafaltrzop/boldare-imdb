@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '@app/auth/services';
-import { MoviesCollectionPageComponent } from '@app/movies/containers';
+import {
+  MovieDetailsPageComponent,
+  MoviesCollectionPageComponent
+} from '@app/movies/containers';
 
 const routes: Routes = [
   {
     path: 'movies',
     component: MoviesCollectionPageComponent,
-    //   component: MoviesComponent,
     canActivate: [AuthGuard]
-    //   canActivateChild: [AuthGuard],
-    //   children: [
-    //     {
-    //       path: ':id',
-    //       component: MovieDetailsComponent
-    //     }
-    //   ]
+  },
+  {
+    path: 'movies/:id',
+    canActivate: [AuthGuard],
+    component: MovieDetailsPageComponent
   }
 ];
 

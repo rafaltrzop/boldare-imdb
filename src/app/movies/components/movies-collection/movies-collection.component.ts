@@ -8,10 +8,14 @@ import { MoviesService } from '@app/movies/services';
   styleUrls: ['./movies-collection.component.scss']
 })
 export class MoviesCollectionComponent implements OnInit {
+  dataSource = [];
+  displayedColumns: string[] = ['no', 'title', 'year', 'metascore'];
+
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit(): void {
     this.moviesService.getMovies().subscribe(movies => {
+      this.dataSource = movies.collection;
       console.log(movies);
     });
   }

@@ -4,6 +4,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 
@@ -13,6 +14,7 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatTableModule,
     MatToolbarModule
   ],
   exports: [
@@ -20,6 +22,7 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatTableModule,
     MatToolbarModule
   ]
 })
