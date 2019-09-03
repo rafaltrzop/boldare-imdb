@@ -7,6 +7,8 @@ export const login = createAction(
   props<{ credentials: Credentials }>()
 );
 
-export const loginRedirect = createAction('[Auth] Login Redirect');
+export const loginPageRedirect = createAction('[Auth] Login Page Redirect');
 
 export const logout = createAction('[Auth] Logout');
+
+export const homePageRedirect = createAction('[Auth] Home Page Redirect');

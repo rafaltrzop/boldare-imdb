@@ -32,28 +32,25 @@ export class AuthEffects {
     )
   );
 
-  loginSuccess$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthApiActions.loginSuccess),
-        concatMap(action =>
-          of(action).pipe(
-            withLatestFrom(this.store.pipe(select(fromAuth.getToken)))
-          )
-        ),
-        tap(([action, token]) => {
-          localStorage.setItem('token', token);
-          // TODO: redirect action
-          this.router.navigate(['/']);
-        })
+  loginSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthApiActions.loginSuccess),
+      concatMap(action =>
+        of(action).pipe(
+          withLatestFrom(this.store.pipe(select(fromAuth.getToken)))
+        )
       ),
-    { dispatch: false }
+      tap(([, token]) => {
+        localStorage.setItem('token', token);
+      }),
+      map(() => AuthActions.homePageRedirect())
+    )
   );
 
-  loginRedirect$ = createEffect(
+  loginPageRedirect$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActions.loginRedirect, AuthActions.logout),
+        ofType(AuthActions.loginPageRedirect, AuthActions.logout),
         tap(() => {
           this.router.navigate(['/login']);
         })
@@ -67,6 +64,17 @@ export class AuthEffects {
         ofType(AuthActions.logout),
         tap(() => {
           localStorage.removeItem('token');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  homePageRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.homePageRedirect),
+        tap(() => {
+          this.router.navigate(['/']);
         })
       ),
     { dispatch: false }
