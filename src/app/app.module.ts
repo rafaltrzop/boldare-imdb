@@ -13,6 +13,7 @@ import { CoreModule } from '@app/core';
 
 import { AppComponent } from '@app/core/containers';
 
+import { httpInterceptorProviders } from '@app/core/services';
 import { reducers, metaReducers } from '@app/reducers';
 import { environment } from '@env/environment';
 
@@ -38,6 +39,7 @@ import { environment } from '@env/environment';
     EffectsModule.forRoot([]),
     CoreModule
   ],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
