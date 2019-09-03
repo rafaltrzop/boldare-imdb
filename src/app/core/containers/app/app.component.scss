@@ -1,3 +1,14 @@
+@import "variables";
+
 .toolbar {
   padding: 0;
+}
+
+.content {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  @media (min-width: $grid-breakpoint-md) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 }
