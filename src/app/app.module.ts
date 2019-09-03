@@ -7,22 +7,22 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AuthModule } from '@app/auth';
+import { MoviesModule } from '@app/movies';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { CoreModule } from '@app/core';
 
 import { AppComponent } from '@app/core/containers';
-import { FooComponent } from '@app/foo.component'; // TODO: remove
 
 import { reducers, metaReducers } from '@app/reducers';
 import { environment } from '@env/environment';
 
 @NgModule({
-  declarations: [FooComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AuthModule,
+    MoviesModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, {
       metaReducers,

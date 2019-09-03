@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginPageComponent } from '@app/auth/containers';
 import { NotAuthGuard } from '@app/auth/services';
+import { LoginPageComponent } from '@app/auth/containers';
 
 const routes: Routes = [
   {
