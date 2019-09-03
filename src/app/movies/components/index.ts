@@ -1,1 +1,1 @@
-export * from './foo.component';
+export * from './movies-collection/movies-collection.component';

@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '@app/auth/services';
-import { FooComponent } from '@app/movies/components';
+import { MoviesCollectionPageComponent } from '@app/movies/containers';
 
 const routes: Routes = [
   {
     path: 'movies',
-    component: FooComponent,
+    component: MoviesCollectionPageComponent,
     //   component: MoviesComponent,
     canActivate: [AuthGuard]
     //   canActivateChild: [AuthGuard],
