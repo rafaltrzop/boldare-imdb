@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import {
@@ -42,7 +43,8 @@ export class AuthEffects {
         ),
         tap(([action, token]) => {
           localStorage.setItem('token', token);
-          // this.router.navigate(['/']); // TODO
+          // TODO: redirect action
+          this.router.navigate(['/']);
         })
       ),
     { dispatch: false }
@@ -51,6 +53,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private store: Store<fromAuth.State>
+    private store: Store<fromAuth.State>,
+    private router: Router
   ) {}
 }
