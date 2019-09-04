@@ -10,8 +10,15 @@
   }
 
   &__logotype {
-    color: $color-white;
     text-decoration: none;
+    color: $color-white;
+    transition: color 0.2s;
+    outline: none;
+
+    &:focus,
+    &:hover {
+      color: $color-yellow-500;
+    }
   }
 }
 
@@ -20,6 +27,6 @@
   padding-bottom: 15px;
   @media (min-width: $grid-breakpoint-md) {
     padding-top: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 90px;
   }
 }
