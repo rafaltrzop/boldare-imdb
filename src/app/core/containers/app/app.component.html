@@ -1,7 +1,11 @@
 <header>
   <mat-toolbar color="primary" class="toolbar">
     <div class="container toolbar__container">
-      <h1>Boldare IMDb</h1>
+      <h1>
+        <a routerLink="/" class="toolbar__logotype">
+          Boldare IMDb
+        </a>
+      </h1>
       <button
         *ngIf="isLoggedIn$ | async"
         type="button"
