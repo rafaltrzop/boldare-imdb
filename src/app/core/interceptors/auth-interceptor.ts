@@ -12,7 +12,7 @@ import { map, mergeMap } from 'rxjs/operators';
 import * as fromAuth from '@app/auth/reducers';
 
 @Injectable()
-export class AuthInterceptorService implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
   constructor(private store: Store<fromAuth.State>) {}
 
   intercept(
