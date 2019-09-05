@@ -1,11 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { MoviesCollectionApiActions } from '@app/movies/actions';
+import { Movie } from '@app/movies/models';
 
 export const collectionFeatureKey = 'collection';
 
 export interface State {
-  movies: any[]; // TODO: Movie[] type
+  movies: Movie[];
   total: number;
 }
 

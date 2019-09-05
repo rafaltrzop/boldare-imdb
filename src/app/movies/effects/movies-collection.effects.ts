@@ -8,6 +8,7 @@ import {
   MoviesCollectionApiActions,
   MoviesCollectionPageActions
 } from '@app/movies/actions';
+import { Movie } from '@app/movies/models';
 
 @Injectable()
 export class MoviesCollectionEffects {
@@ -16,13 +17,12 @@ export class MoviesCollectionEffects {
       ofType(MoviesCollectionPageActions.loadMovies),
       switchMap(() =>
         this.moviesService.getMovies().pipe(
-          // TODO: Movie[] type
           map(
             ({
               collection: movies,
               total
             }: {
-              collection: any[];
+              collection: Movie[];
               total: number;
             }) =>
               MoviesCollectionApiActions.loadMoviesSuccess({

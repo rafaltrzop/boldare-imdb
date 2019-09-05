@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { Movie } from '@app/movies/models';
+
 @Component({
   selector: 'app-movies-collection',
   templateUrl: './movies-collection.component.html',
@@ -7,7 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class MoviesCollectionComponent {
   @Input()
-  movies: any[]; // TODO: Movie[] type
+  movies: Movie[];
 
   displayedColumns: string[] = ['no', 'title', 'year', 'metascore'];
 }

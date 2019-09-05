@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '@env/environment';
+import { Movie } from '@app/movies/models';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,9 @@ import { environment } from '@env/environment';
 export class MoviesService {
   constructor(private http: HttpClient) {}
 
-  // TODO: add return type
-  getMovies(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/movies`);
+  getMovies(): Observable<{ collection: Movie[]; total: number }> {
+    return this.http.get<{ collection: Movie[]; total: number }>(
+      `${environment.apiUrl}/movies`
+    );
   }
 }
