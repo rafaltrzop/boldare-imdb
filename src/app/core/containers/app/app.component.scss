@@ -15,8 +15,7 @@
     transition: color 0.2s;
     outline: none;
 
-    &:focus,
-    &:hover {
+    &.focus-visible {
       color: $color-yellow-500;
     }
   }
