@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthActions } from '@app/auth/actions';
+import { AuthGuardActions } from '@app/auth/actions';
 import * as fromAuth from '@app/auth/reducers';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
           return true;
         }
 
-        this.store.dispatch(AuthActions.loginPageRedirect());
+        this.store.dispatch(AuthGuardActions.loginPageRedirect());
         return false;
       })
     );

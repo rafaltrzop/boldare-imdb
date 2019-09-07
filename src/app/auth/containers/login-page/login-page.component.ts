@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import { Credentials } from '@app/auth/models';
-import { AuthActions } from '@app/auth/actions';
+import { LoginPageActions } from '@app/auth/actions';
 import * as fromAuth from '@app/auth/reducers';
 
 @Component({
@@ -17,6 +17,6 @@ export class LoginPageComponent {
   constructor(private store: Store<fromAuth.State>) {}
 
   onSubmit(credentials: Credentials) {
-    this.store.dispatch(AuthActions.login({ credentials }));
+    this.store.dispatch(LoginPageActions.login({ credentials }));
   }
 }

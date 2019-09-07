@@ -14,7 +14,12 @@ import {
 } from 'rxjs/operators';
 
 import { AuthService } from '@app/auth/services';
-import { AuthActions, AuthApiActions } from '@app/auth/actions';
+import {
+  AuthActions,
+  AuthApiActions,
+  AuthGuardActions,
+  LoginPageActions
+} from '@app/auth/actions';
 import { Credentials } from '@app/auth/models';
 import * as fromAuth from '@app/auth/reducers';
 
@@ -22,7 +27,7 @@ import * as fromAuth from '@app/auth/reducers';
 export class AuthEffects {
   login$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.login),
+      ofType(LoginPageActions.login),
       map(action => action.credentials),
       exhaustMap((credentials: Credentials) =>
         this.authService.login(credentials).pipe(
@@ -45,14 +50,14 @@ export class AuthEffects {
       tap(([, token]) => {
         localStorage.setItem('token', token);
       }),
-      map(() => AuthActions.homePageRedirect())
+      map(() => LoginPageActions.homePageRedirect())
     )
   );
 
   loginPageRedirect$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActions.loginPageRedirect, AuthActions.logout),
+        ofType(AuthGuardActions.loginPageRedirect, AuthActions.logout),
         tap(() => {
           this.router.navigate(['/login']);
         })
@@ -74,7 +79,10 @@ export class AuthEffects {
   homePageRedirect$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActions.homePageRedirect),
+        ofType(
+          AuthGuardActions.homePageRedirect,
+          LoginPageActions.homePageRedirect
+        ),
         tap(() => {
           this.router.navigate(['/']);
         })
