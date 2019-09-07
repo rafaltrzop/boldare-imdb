@@ -54,6 +54,11 @@
       </mat-form-field>
       <div class="actions">
         <p *ngIf="error" class="actions__error">{{ error }}</p>
+        <mat-spinner
+          *ngIf="isPending"
+          [diameter]="24"
+          [strokeWidth]="3"
+        ></mat-spinner>
         <button
           type="submit"
           class="actions__submit"

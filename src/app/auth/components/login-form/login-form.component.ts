@@ -16,6 +16,8 @@ import { Credentials } from '@app/auth/models';
 export class LoginFormComponent {
   @Input()
   set pending(isPending: boolean) {
+    this.isPending = isPending;
+
     if (isPending) {
       this.form.disable();
     } else {
@@ -29,6 +31,7 @@ export class LoginFormComponent {
   @Input()
   error: string | null;
 
+  isPending: boolean;
   hidePassword = true;
   form: FormGroup = new FormGroup({
     login: new FormControl('', [Validators.required, Validators.email]),
