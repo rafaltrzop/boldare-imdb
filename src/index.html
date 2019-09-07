@@ -16,12 +16,12 @@
       rel="stylesheet"
     />
     <style>
-      app-root:empty + .loading-screen {
+      app-root:empty + .app-loading-screen {
         opacity: 1;
         z-index: 999;
       }
 
-      .loading-screen {
+      .app-loading-screen {
         opacity: 0;
         z-index: -1;
         transition: opacity 0.6s ease-in-out, z-index 1ms 0.6s;
@@ -36,12 +36,12 @@
         align-items: center;
       }
 
-      .spinner {
+      .app-spinner {
         width: 70px;
         text-align: center;
       }
 
-      .spinner__dot {
+      .app-spinner__dot {
         display: inline-block;
         width: 18px;
         height: 18px;
@@ -50,11 +50,11 @@
         animation: 1.4s bounce infinite ease-in-out both;
       }
 
-      .spinner__dot_bounce1 {
+      .app-spinner__dot_bounce1 {
         animation-delay: -0.32s;
       }
 
-      .spinner__dot_bounce2 {
+      .app-spinner__dot_bounce2 {
         animation-delay: -0.16s;
       }
 
@@ -73,16 +73,16 @@
   <body class="mat-app-background">
     <app-root></app-root>
 
-    <div class="loading-screen">
-      <div class="spinner">
-        <div class="spinner__dot spinner__dot_bounce1"></div>
-        <div class="spinner__dot spinner__dot_bounce2"></div>
-        <div class="spinner__dot"></div>
+    <div class="app-loading-screen">
+      <div class="app-spinner">
+        <div class="app-spinner__dot app-spinner__dot_bounce1"></div>
+        <div class="app-spinner__dot app-spinner__dot_bounce2"></div>
+        <div class="app-spinner__dot"></div>
       </div>
 
       <noscript>
         <style>
-          .spinner {
+          .app-spinner {
             display: none;
           }
 

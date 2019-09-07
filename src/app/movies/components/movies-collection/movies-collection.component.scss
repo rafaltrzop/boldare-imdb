@@ -6,18 +6,54 @@
 }
 
 .table {
-  width: 100%;
+  position: relative;
+  min-height: 300px;
+  background-color: $color-white;
 
   &__title {
     width: 100%;
   }
 }
 
-.title {
-  background-color: $color-grey-300;
+.loading-screen {
+  position: absolute;
+  top: 56px;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginator {
+  margin-top: 1px;
+
+  &_loading {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.chip {
   padding: 7px 12px;
   font-weight: 500;
   border-radius: 16px;
+
+  &_color_grey {
+    background-color: $color-grey-300;
+  }
+
+  &_color_yellow {
+    background-color: $color-yellow-500;
+  }
+}
+
+.title {
   color: inherit;
   text-decoration: none;
   transition: background-color 0.2s;
@@ -30,8 +66,5 @@
 }
 
 .metascore {
-  background-color: $color-yellow-500;
-  padding: 7px 12px;
-  font-weight: 500;
-  border-radius: 16px;
+  text-align: right;
 }

@@ -4,7 +4,9 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatPaginatorModule,
   MatProgressSpinnerModule,
+  MatSortModule,
   MatTableModule,
   MatToolbarModule
 } from '@angular/material';
@@ -15,7 +17,9 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatSortModule,
     MatTableModule,
     MatToolbarModule
   ],
@@ -24,7 +28,9 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatSortModule,
     MatTableModule,
     MatToolbarModule
   ]

@@ -11,5 +11,11 @@ export class MoviesCollectionComponent {
   @Input()
   movies: Movie[];
 
+  // TODO
+  resultsLength = 100; // TODO: set to 0
+  // isLoadingResults = true;
+  isLoadingResults = false;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
   displayedColumns: string[] = ['no', 'title', 'year', 'metascore'];
 }
