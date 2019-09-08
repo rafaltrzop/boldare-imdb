@@ -30,7 +30,9 @@ import { environment } from '@env/environment';
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true
       }
     }),
     StoreDevtoolsModule.instrument({
