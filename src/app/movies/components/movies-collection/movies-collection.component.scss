@@ -29,7 +29,7 @@
 }
 
 .paginator {
-  margin-top: 1px;
+  margin-top: 1px; // Chrome 76 fix
 
   &_loading {
     position: absolute;
@@ -51,6 +51,10 @@
   &_color_yellow {
     background-color: $color-yellow-500;
   }
+}
+
+.position {
+  text-align: right;
 }
 
 .title {

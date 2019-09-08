@@ -12,7 +12,6 @@ import {
   AuthGuardActions,
   LoginPageActions
 } from '@app/auth/actions';
-import { Credentials } from '@app/auth/models';
 import * as fromAuth from '@app/auth/reducers';
 
 @Injectable()
@@ -21,7 +20,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(LoginPageActions.login),
       map(action => action.credentials),
-      exhaustMap((credentials: Credentials) =>
+      exhaustMap(credentials =>
         this.authService.login(credentials).pipe(
           first(),
           map(token => AuthApiActions.loginSuccess(token)),

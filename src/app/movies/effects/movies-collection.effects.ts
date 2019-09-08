@@ -8,7 +8,6 @@ import {
   MoviesCollectionApiActions,
   MoviesCollectionPageActions
 } from '@app/movies/actions';
-import { Movie } from '@app/movies/models';
 
 @Injectable()
 export class MoviesCollectionEffects {
@@ -16,19 +15,12 @@ export class MoviesCollectionEffects {
     this.actions$.pipe(
       ofType(MoviesCollectionPageActions.loadMovies),
       switchMap(() =>
-        this.moviesService.getMovies().pipe(
-          map(
-            ({
-              collection: movies,
+        this.moviesService.getMovies2().pipe(
+          map(({ collection: movies, total }) =>
+            MoviesCollectionApiActions.loadMoviesSuccess({
+              movies,
               total
-            }: {
-              collection: Movie[];
-              total: number;
-            }) =>
-              MoviesCollectionApiActions.loadMoviesSuccess({
-                movies,
-                total
-              })
+            })
           ),
           catchError(error =>
             of(MoviesCollectionApiActions.loadMoviesFailure({ error }))

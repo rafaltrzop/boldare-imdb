@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+// TODO
 
-import { MoviesCollectionPageActions } from '@app/movies/actions';
-import * as fromMovies from '@app/movies/reducers';
+import { Component, OnInit } from '@angular/core';
+// import { Store, select } from '@ngrx/store';
+
+// import { MoviesCollectionPageActions } from '@app/movies/actions';
+// import * as fromMovies from '@app/movies/reducers';
 
 @Component({
   selector: 'app-movies-collection-page',
@@ -10,11 +12,11 @@ import * as fromMovies from '@app/movies/reducers';
   styleUrls: ['./movies-collection-page.component.scss']
 })
 export class MoviesCollectionPageComponent implements OnInit {
-  movies$ = this.store.pipe(select(fromMovies.getMovies));
+  // movies$ = this.store.pipe(select(fromMovies.getMovies));
 
-  constructor(private store: Store<fromMovies.State>) {}
+  // constructor(private store: Store<fromMovies.State>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(MoviesCollectionPageActions.loadMovies());
+    // this.store.dispatch(MoviesCollectionPageActions.loadMovies());
   }
 }
