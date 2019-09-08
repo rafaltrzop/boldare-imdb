@@ -1,17 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import {
-  catchError,
-  concatMap,
-  exhaustMap,
-  first,
-  map,
-  tap,
-  withLatestFrom
-} from 'rxjs/operators';
+import { catchError, exhaustMap, first, map, tap } from 'rxjs/operators';
 
 import { AuthService } from '@app/auth/services';
 import {
@@ -42,12 +34,8 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthApiActions.loginSuccess),
-      concatMap(action =>
-        of(action).pipe(
-          withLatestFrom(this.store.pipe(select(fromAuth.getToken)))
-        )
-      ),
-      tap(([, token]) => {
+      map(action => action.token),
+      tap(token => {
         localStorage.setItem('token', token);
       }),
       map(() => LoginPageActions.homePageRedirect())
