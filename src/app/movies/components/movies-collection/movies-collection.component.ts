@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatPaginator, MatSort } from '@angular/material';
 import { merge, of } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
@@ -28,9 +29,8 @@ export class MoviesCollectionComponent implements AfterViewInit {
   isLoadingResults = true;
   resultsLength = 0;
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(private moviesService: MoviesService, private router: Router) {}
 
-  // TODO: set query params in URL
   ngAfterViewInit(): void {
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
@@ -40,11 +40,26 @@ export class MoviesCollectionComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
+
+          const limit = this.paginator.pageSize;
+          const page = this.paginator.pageIndex + 1;
+          const sortBy = this.sort.active;
+          const sortDir = this.sort.direction;
+
+          const queryParams: { limit: number; page: number; sort?: string } = {
+            limit,
+            page
+          };
+          if (sortBy && sortDir) {
+            queryParams.sort = `${this.sort.active}:${this.sort.direction}`;
+          }
+          this.router.navigate([], { queryParams });
+
           return this.moviesService.getMovies({
-            limit: this.paginator.pageSize,
-            page: this.paginator.pageIndex + 1,
-            sortBy: this.sort.active,
-            sortDir: this.sort.direction
+            limit,
+            page,
+            sortBy,
+            sortDir
           });
         }),
         map(data => {

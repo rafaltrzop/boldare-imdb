@@ -29,11 +29,11 @@ export class MoviesService {
       .set('page', `${page}`);
 
     if (sortBy && sortDir) {
-      const sort = {
-        asc: 1,
-        desc: -1
+      const sortDirMap = {
+        asc: '1',
+        desc: '-1'
       };
-      params = params.set('sortBy', sortBy).set('sortDir', `${sort[sortDir]}`);
+      params = params.set('sortBy', sortBy).set('sortDir', sortDirMap[sortDir]);
     }
 
     return this.http.get<Collection<Movie>>(`${environment.apiUrl}/movies`, {
