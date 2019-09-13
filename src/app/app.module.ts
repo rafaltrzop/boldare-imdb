@@ -8,7 +8,6 @@ import { EffectsModule } from '@ngrx/effects';
 import 'focus-visible';
 
 import { AuthModule } from '@app/auth';
-import { MoviesModule } from '@app/movies';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { CoreModule } from '@app/core';
 
@@ -24,7 +23,6 @@ import { environment } from '@env/environment';
     BrowserAnimationsModule,
     HttpClientModule,
     AuthModule,
-    MoviesModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, {
       metaReducers,

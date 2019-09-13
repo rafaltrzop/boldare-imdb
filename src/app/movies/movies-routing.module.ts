@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from '@app/auth/services';
 import {
   MovieDetailsPageComponent,
   MoviesCollectionPageComponent
@@ -9,13 +8,11 @@ import {
 
 const routes: Routes = [
   {
-    path: 'movies',
-    component: MoviesCollectionPageComponent,
-    canActivate: [AuthGuard]
+    path: '',
+    component: MoviesCollectionPageComponent
   },
   {
-    path: 'movies/:id',
-    canActivate: [AuthGuard],
+    path: ':id',
     component: MovieDetailsPageComponent
   }
 ];
