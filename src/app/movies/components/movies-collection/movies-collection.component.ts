@@ -1,6 +1,12 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatPaginator, MatSort } from '@angular/material';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MatPaginator, MatSort, SortDirection } from '@angular/material';
 import { merge, of } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
@@ -12,7 +18,7 @@ import { MoviesService } from '@app/movies/services';
   templateUrl: './movies-collection.component.html',
   styleUrls: ['./movies-collection.component.scss']
 })
-export class MoviesCollectionComponent implements AfterViewInit {
+export class MoviesCollectionComponent implements AfterViewInit, OnInit {
   // @Input()
   // movies: Movie[];
 
@@ -25,11 +31,33 @@ export class MoviesCollectionComponent implements AfterViewInit {
   movies: Movie[];
   displayedColumns: string[] = ['position', 'title', 'year', 'metascore'];
   pageSizeOptions: number[] = [5, 10, 25, 100];
-  pageSize = 10;
-  isLoadingResults = true;
+  pageSize: number;
+  pageIndex: number;
+  sortActive: string;
+  sortDirection: SortDirection;
   resultsLength = 0;
+  isLoadingResults = true;
 
-  constructor(private moviesService: MoviesService, private router: Router) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private moviesService: MoviesService
+  ) {}
+
+  ngOnInit(): void {
+    const pageSize = +this.route.snapshot.queryParamMap.get('limit');
+    const pageIndex = +this.route.snapshot.queryParamMap.get('page') - 1;
+    const sortActive = this.route.snapshot.queryParamMap.get('sortBy');
+    let sortDirection = this.route.snapshot.queryParamMap.get('sortDir');
+    sortDirection = ['asc', 'desc'].includes(sortDirection)
+      ? sortDirection
+      : 'asc';
+
+    this.pageSize = pageSize || 10;
+    this.pageIndex = pageIndex || 0;
+    this.sortActive = sortActive || 'title';
+    this.sortDirection = sortDirection as SortDirection;
+  }
 
   ngAfterViewInit(): void {
     // If the user changes the sort order, reset back to the first page.
@@ -46,13 +74,12 @@ export class MoviesCollectionComponent implements AfterViewInit {
           const sortBy = this.sort.active;
           const sortDir = this.sort.direction;
 
-          const queryParams: { limit: number; page: number; sort?: string } = {
+          const queryParams: Params = {
             limit,
-            page
+            page,
+            sortBy: sortBy && sortDir ? sortBy : null,
+            sortDir: sortBy && sortDir ? sortDir : null
           };
-          if (sortBy && sortDir) {
-            queryParams.sort = `${this.sort.active}:${this.sort.direction}`;
-          }
           this.router.navigate([], { queryParams });
 
           return this.moviesService.getMovies({
