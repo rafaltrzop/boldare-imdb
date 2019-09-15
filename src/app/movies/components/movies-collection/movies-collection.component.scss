@@ -7,7 +7,7 @@
 
 .table {
   position: relative;
-  min-height: 300px;
+  min-height: 160px;
   background-color: $color-white;
 
   &__title {
@@ -19,9 +19,9 @@
   position: absolute;
   top: 56px;
   left: 0;
-  bottom: 56px;
+  bottom: 58px;
   right: 0;
-  background: rgba(0, 0, 0, 0.15);
+  background: $color-grey-700;
   z-index: 1;
   display: flex;
   align-items: center;
