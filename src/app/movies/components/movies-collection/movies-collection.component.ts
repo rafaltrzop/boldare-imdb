@@ -109,11 +109,13 @@ export class MoviesCollectionComponent implements AfterViewInit {
       }
       this.ref.detectChanges();
 
-      this.queryParamsChange.emit({
-        limit,
-        page,
-        sortBy,
-        sortDir
+      setTimeout(() => {
+        this.queryParamsChange.emit({
+          limit,
+          page,
+          sortBy,
+          sortDir
+        });
       });
     });
   }
