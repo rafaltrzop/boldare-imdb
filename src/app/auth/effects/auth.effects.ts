@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, first, map, tap } from 'rxjs/operators';
 
@@ -12,7 +11,6 @@ import {
   AuthGuardActions,
   LoginPageActions
 } from '@app/auth/actions';
-import * as fromAuth from '@app/auth/reducers';
 
 @Injectable()
 export class AuthEffects {
@@ -80,7 +78,6 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private store: Store<fromAuth.State>,
     private router: Router
   ) {}
 }
