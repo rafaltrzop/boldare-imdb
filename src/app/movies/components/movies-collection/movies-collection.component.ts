@@ -47,7 +47,6 @@ export class MoviesCollectionComponent implements AfterViewInit {
   displayedColumns: string[] = ['position', 'title', 'year', 'metascore'];
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageSize = 10;
-  pageIndex = 0;
   sortActive: string;
   sortDirection: SortDirection;
 
@@ -59,7 +58,9 @@ export class MoviesCollectionComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     // Go back to the first page on sort order change
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    this.sort.sortChange.subscribe(() => {
+      this.paginator.pageIndex = 0;
+    });
 
     // Update URL query string on sort or paginator change
     merge(this.sort.sortChange, this.paginator.page).subscribe(() => {
@@ -83,7 +84,7 @@ export class MoviesCollectionComponent implements AfterViewInit {
       limit = limit ? limit : this.pageSize;
 
       let page = Math.round(Math.abs(+queryParamMap.get('page')));
-      page = page ? page : this.pageIndex + 1;
+      page = page ? page : 1;
 
       let sortBy = queryParamMap.get('sortBy');
       sortBy = ['title', 'year', 'metascore'].includes(sortBy) ? sortBy : null;
