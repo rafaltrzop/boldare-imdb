@@ -57,12 +57,18 @@ export class MoviesCollectionComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    // Go back to the first page on sort order change
+    this.resetPageOnSortOrderChange();
+    this.updateQueryParamsOnSortOrPaginatorChange();
+    this.emitQueryParamsOnUrlChange();
+  }
+
+  private resetPageOnSortOrderChange(): void {
     this.sort.sortChange.subscribe(() => {
       this.paginator.pageIndex = 0;
     });
+  }
 
-    // Update URL query string on sort or paginator change
+  private updateQueryParamsOnSortOrPaginatorChange(): void {
     merge(this.sort.sortChange, this.paginator.page).subscribe(() => {
       const limit = this.paginator.pageSize;
       const page = this.paginator.pageIndex + 1;
@@ -77,8 +83,9 @@ export class MoviesCollectionComponent implements AfterViewInit {
       };
       this.router.navigate([], { queryParams });
     });
+  }
 
-    // Fetch new data on URL query string change
+  private emitQueryParamsOnUrlChange(): void {
     this.route.queryParamMap.subscribe(queryParamMap => {
       let limit = Math.round(Math.abs(+queryParamMap.get('limit')));
       limit = limit ? limit : this.pageSize;
@@ -92,6 +99,7 @@ export class MoviesCollectionComponent implements AfterViewInit {
       let sortDir = queryParamMap.get('sortDir') as SortDirection;
       sortDir = ['asc', 'desc'].includes(sortDir) ? sortDir : null;
 
+      // Initialize UI state
       this.paginator.pageSize = limit;
       this.paginator.pageIndex = page - 1;
       this.sortActive = sortBy;
@@ -109,6 +117,7 @@ export class MoviesCollectionComponent implements AfterViewInit {
       }
       this.ref.detectChanges();
 
+      // Emit query params on URL query string change
       setTimeout(() => {
         this.queryParamsChange.emit({
           limit,
