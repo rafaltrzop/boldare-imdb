@@ -14,7 +14,7 @@
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef></th>
       <td class="position" mat-cell *matCellDef="let index = index">
-        {{ paginator.pageIndex * paginator.pageSize + index + 1 }}
+        {{ paginator?.pageIndex * paginator?.pageSize + index + 1 }}
       </td>
     </ng-container>
     <ng-container matColumnDef="title">
