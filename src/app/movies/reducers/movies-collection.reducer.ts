@@ -6,16 +6,16 @@ import {
 } from '@app/movies/actions';
 import { Movie } from '@app/movies/models';
 
-export const collectionFeatureKey = 'collection';
+export const moviesFeatureKey = 'movies';
 
 export interface State {
-  movies: Movie[];
+  collection: Movie[];
   total: number;
   isLoading: boolean;
 }
 
 export const initialState: State = {
-  movies: [],
+  collection: [],
   total: 0,
   isLoading: false
 };
@@ -28,9 +28,9 @@ export const reducer = createReducer(
   })),
   on(
     MoviesCollectionApiActions.loadMoviesSuccess,
-    (state, { movies, total }) => ({
+    (state, { collection, total }) => ({
       ...state,
-      movies,
+      collection,
       total,
       isLoading: false
     })
@@ -42,6 +42,6 @@ export const reducer = createReducer(
   }))
 );
 
-export const getMovies = (state: State) => state.movies;
+export const getCollection = (state: State) => state.collection;
 export const getTotal = (state: State) => state.total;
 export const getIsLoading = (state: State) => state.isLoading;

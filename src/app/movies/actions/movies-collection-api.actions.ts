@@ -1,11 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ApiError } from '@app/core/models';
+import { ApiError, Collection } from '@app/core/models';
 import { Movie } from '@app/movies/models';
 
 export const loadMoviesSuccess = createAction(
   '[Movies Collection API] Load Movies Success',
-  props<{ movies: Movie[]; total: number }>()
+  props<Collection<Movie>>()
 );
 
 export const loadMoviesFailure = createAction(

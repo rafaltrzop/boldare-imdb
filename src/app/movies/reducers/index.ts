@@ -11,7 +11,7 @@ import * as fromMovies from '@app/movies/reducers/movies-collection.reducer';
 export const moviesFeatureKey = 'movies';
 
 export interface MoviesState {
-  [fromMovies.collectionFeatureKey]: fromMovies.State;
+  [fromMovies.moviesFeatureKey]: fromMovies.State;
 }
 
 export interface State extends fromRoot.State {
@@ -20,7 +20,7 @@ export interface State extends fromRoot.State {
 
 export function reducers(state: MoviesState | undefined, action: Action) {
   return combineReducers({
-    [fromMovies.collectionFeatureKey]: fromMovies.reducer
+    [fromMovies.moviesFeatureKey]: fromMovies.reducer
   })(state, action);
 }
 
@@ -30,11 +30,11 @@ export const selectMoviesState = createFeatureSelector<State, MoviesState>(
 
 export const selectMoviesCollectionState = createSelector(
   selectMoviesState,
-  (state: MoviesState) => state[fromMovies.collectionFeatureKey]
+  (state: MoviesState) => state[fromMovies.moviesFeatureKey]
 );
 export const getMoviesCollection = createSelector(
   selectMoviesCollectionState,
-  fromMovies.getMovies
+  fromMovies.getCollection
 );
 export const getMoviesCollectionTotal = createSelector(
   selectMoviesCollectionState,

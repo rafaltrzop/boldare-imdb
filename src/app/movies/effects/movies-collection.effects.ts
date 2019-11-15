@@ -16,12 +16,7 @@ export class MoviesCollectionEffects {
       ofType(MoviesCollectionPageActions.loadMovies),
       switchMap(({ params }) =>
         this.moviesService.getMovies(params).pipe(
-          map(({ collection: movies, total }) =>
-            MoviesCollectionApiActions.loadMoviesSuccess({
-              movies,
-              total
-            })
-          ),
+          map(movies => MoviesCollectionApiActions.loadMoviesSuccess(movies)),
           catchError(error =>
             of(MoviesCollectionApiActions.loadMoviesFailure({ error }))
           )
