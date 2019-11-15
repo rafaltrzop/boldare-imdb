@@ -1,2 +1,6 @@
-<!--<app-movies-collection [movies]="movies$ | async"></app-movies-collection>-->
-<app-movies-collection></app-movies-collection>
+<app-movies-collection
+  [isLoading]="isLoading$ | async"
+  [movies]="movies$ | async"
+  [moviesTotal]="moviesTotal$ | async"
+  (queryParamsChange)="loadMovies($event)"
+></app-movies-collection>

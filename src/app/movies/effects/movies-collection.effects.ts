@@ -14,8 +14,8 @@ export class MoviesCollectionEffects {
   loadMovies$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MoviesCollectionPageActions.loadMovies),
-      switchMap(() =>
-        this.moviesService.getMovies2().pipe(
+      switchMap(({ params }) =>
+        this.moviesService.getMovies(params).pipe(
           map(({ collection: movies, total }) =>
             MoviesCollectionApiActions.loadMoviesSuccess({
               movies,

@@ -1,6 +1,6 @@
 <h2>Movies</h2>
 <div class="table mat-elevation-z8">
-  <div class="loading-screen" *ngIf="isLoadingResults">
+  <div class="loading-screen" *ngIf="isLoading">
     <mat-spinner [diameter]="24" [strokeWidth]="3"></mat-spinner>
   </div>
   <table
@@ -58,8 +58,8 @@
 
   <mat-paginator
     class="paginator"
-    [class.paginator_loading]="!resultsLength"
-    [length]="resultsLength"
+    [class.paginator_loading]="!moviesTotal"
+    [length]="moviesTotal"
     [pageSize]="pageSize"
     [pageIndex]="pageIndex"
     [pageSizeOptions]="pageSizeOptions"

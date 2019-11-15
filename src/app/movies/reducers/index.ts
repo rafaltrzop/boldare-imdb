@@ -32,7 +32,15 @@ export const selectMoviesCollectionState = createSelector(
   selectMoviesState,
   (state: MoviesState) => state[fromMovies.collectionFeatureKey]
 );
-export const getMovies = createSelector(
+export const getMoviesCollection = createSelector(
   selectMoviesCollectionState,
   fromMovies.getMovies
+);
+export const getMoviesCollectionTotal = createSelector(
+  selectMoviesCollectionState,
+  fromMovies.getTotal
+);
+export const getMoviesCollectionIsLoading = createSelector(
+  selectMoviesCollectionState,
+  fromMovies.getIsLoading
 );

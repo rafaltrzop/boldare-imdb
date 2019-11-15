@@ -1,3 +1,8 @@
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
-export const loadMovies = createAction('[Movies Collection Page] Load Movies');
+import { MoviesParams } from '@app/movies/models';
+
+export const loadMovies = createAction(
+  '[Movies Collection Page] Load Movies',
+  props<{ params: MoviesParams }>()
+);

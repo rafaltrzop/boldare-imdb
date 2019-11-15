@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { SortDirection } from '@angular/material';
 import { Observable } from 'rxjs';
 
 import { Collection } from '@app/core/models';
-import { Movie } from '@app/movies/models';
+import { Movie, MoviesParams } from '@app/movies/models';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -18,12 +17,7 @@ export class MoviesService {
     page,
     sortBy,
     sortDir
-  }: {
-    limit: number;
-    page: number;
-    sortBy: string;
-    sortDir: SortDirection;
-  }): Observable<Collection<Movie>> {
+  }: MoviesParams): Observable<Collection<Movie>> {
     let params = new HttpParams()
       .set('limit', `${limit}`)
       .set('page', `${page}`);
@@ -39,10 +33,5 @@ export class MoviesService {
     return this.http.get<Collection<Movie>>(`${environment.apiUrl}/movies`, {
       params
     });
-  }
-
-  // TODO: remove
-  getMovies2(): Observable<Collection<Movie>> {
-    return this.http.get<Collection<Movie>>(`${environment.apiUrl}/movies`);
   }
 }

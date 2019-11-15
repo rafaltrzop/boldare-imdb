@@ -2,6 +2,9 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
+  Input,
+  Output,
   ViewChild
 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -11,11 +14,9 @@ import {
   MatSortHeader,
   SortDirection
 } from '@angular/material';
-import { merge, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { merge } from 'rxjs';
 
-import { Movie } from '@app/movies/models';
-import { MoviesService } from '@app/movies/services';
+import { Movie, MoviesParams } from '@app/movies/models';
 
 @Component({
   selector: 'app-movies-collection',
@@ -29,21 +30,31 @@ export class MoviesCollectionComponent implements AfterViewInit {
   @ViewChild(MatSort, { static: false })
   sort: MatSort;
 
+  @Input()
+  isLoading: boolean;
+
+  @Input()
   movies: Movie[];
+
+  @Input()
+  moviesTotal: number;
+
+  @Output()
+  queryParamsChange: EventEmitter<MoviesParams> = new EventEmitter<
+    MoviesParams
+  >();
+
   displayedColumns: string[] = ['position', 'title', 'year', 'metascore'];
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageSize = 10;
   pageIndex = 0;
   sortActive: string;
   sortDirection: SortDirection;
-  resultsLength = 0;
-  isLoadingResults = true;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private ref: ChangeDetectorRef,
-    private moviesService: MoviesService
+    private ref: ChangeDetectorRef
   ) {}
 
   ngAfterViewInit(): void {
@@ -67,61 +78,42 @@ export class MoviesCollectionComponent implements AfterViewInit {
     });
 
     // Fetch new data on URL query string change
-    this.route.queryParamMap
-      .pipe(
-        switchMap(queryParamMap => {
-          this.isLoadingResults = true;
+    this.route.queryParamMap.subscribe(queryParamMap => {
+      let limit = Math.round(Math.abs(+queryParamMap.get('limit')));
+      limit = limit ? limit : this.pageSize;
 
-          let limit = Math.round(Math.abs(+queryParamMap.get('limit')));
-          limit = limit ? limit : this.pageSize;
+      let page = Math.round(Math.abs(+queryParamMap.get('page')));
+      page = page ? page : this.pageIndex + 1;
 
-          let page = Math.round(Math.abs(+queryParamMap.get('page')));
-          page = page ? page : this.pageIndex + 1;
+      let sortBy = queryParamMap.get('sortBy');
+      sortBy = ['title', 'year', 'metascore'].includes(sortBy) ? sortBy : null;
 
-          let sortBy = queryParamMap.get('sortBy');
-          sortBy = ['title', 'year', 'metascore'].includes(sortBy)
-            ? sortBy
-            : null;
+      let sortDir = queryParamMap.get('sortDir') as SortDirection;
+      sortDir = ['asc', 'desc'].includes(sortDir) ? sortDir : null;
 
-          let sortDir = queryParamMap.get('sortDir') as SortDirection;
-          sortDir = ['asc', 'desc'].includes(sortDir) ? sortDir : null;
+      this.paginator.pageSize = limit;
+      this.paginator.pageIndex = page - 1;
+      this.sortActive = sortBy;
+      this.sortDirection = sortDir;
 
-          this.paginator.pageSize = limit;
-          this.paginator.pageIndex = page - 1;
-          this.sortActive = sortBy;
-          this.sortDirection = sortDir;
+      // Hack for updating Angular Material Sort Header UI
+      // https://github.com/angular/components/issues/10242
+      // https://github.com/angular/components/issues/12754
+      const activeSortHeader = this.sort.sortables.get(sortBy) as MatSortHeader;
+      if (activeSortHeader) {
+        activeSortHeader._setAnimationTransitionState({
+          fromState: sortDir,
+          toState: 'active'
+        });
+      }
+      this.ref.detectChanges();
 
-          // Hack for updating Angular Material Sort Header UI
-          // https://github.com/angular/components/issues/10242
-          // https://github.com/angular/components/issues/12754
-          const activeSortHeader = this.sort.sortables.get(
-            sortBy
-          ) as MatSortHeader;
-          if (activeSortHeader) {
-            activeSortHeader._setAnimationTransitionState({
-              fromState: sortDir,
-              toState: 'active'
-            });
-          }
-          this.ref.detectChanges();
-
-          return this.moviesService.getMovies({
-            limit,
-            page,
-            sortBy,
-            sortDir
-          });
-        }),
-        map(data => {
-          this.isLoadingResults = false;
-          this.resultsLength = data.total;
-          return data.collection;
-        }),
-        catchError(() => {
-          this.isLoadingResults = false;
-          return of([]);
-        })
-      )
-      .subscribe(data => (this.movies = data));
+      this.queryParamsChange.emit({
+        limit,
+        page,
+        sortBy,
+        sortDir
+      });
+    });
   }
 }

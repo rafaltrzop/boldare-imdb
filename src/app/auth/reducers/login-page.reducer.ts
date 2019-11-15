@@ -6,6 +6,7 @@ export const loginPageFeatureKey = 'loginPage';
 
 export interface State {
   error: string | null;
+  // TODO: rename to isLoading
   pending: boolean;
 }
 
