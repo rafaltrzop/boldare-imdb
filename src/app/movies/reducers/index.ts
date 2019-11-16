@@ -6,12 +6,14 @@ import {
 } from '@ngrx/store';
 
 import * as fromRoot from '@app/reducers';
-import * as fromMovies from '@app/movies/reducers/movies-collection.reducer';
+import * as fromMoviesCollection from '@app/movies/reducers/movies-collection.reducer';
+import * as fromSearchResults from '@app/movies/reducers/search-results.reducer';
 
 export const moviesFeatureKey = 'movies';
 
 export interface MoviesState {
-  [fromMovies.moviesFeatureKey]: fromMovies.State;
+  [fromMoviesCollection.moviesCollectionFeatureKey]: fromMoviesCollection.State;
+  [fromSearchResults.searchResultsFeatureKey]: fromSearchResults.State;
 }
 
 export interface State extends fromRoot.State {
@@ -20,7 +22,9 @@ export interface State extends fromRoot.State {
 
 export function reducers(state: MoviesState | undefined, action: Action) {
   return combineReducers({
-    [fromMovies.moviesFeatureKey]: fromMovies.reducer
+    [fromMoviesCollection.moviesCollectionFeatureKey]:
+      fromMoviesCollection.reducer,
+    [fromSearchResults.searchResultsFeatureKey]: fromSearchResults.reducer
   })(state, action);
 }
 
@@ -30,17 +34,31 @@ export const selectMoviesState = createFeatureSelector<State, MoviesState>(
 
 export const selectMoviesCollectionState = createSelector(
   selectMoviesState,
-  (state: MoviesState) => state[fromMovies.moviesFeatureKey]
+  (state: MoviesState) => state[fromMoviesCollection.moviesCollectionFeatureKey]
 );
-export const getMoviesCollection = createSelector(
+export const getMoviesCollectionEntities = createSelector(
   selectMoviesCollectionState,
-  fromMovies.getCollection
+  fromMoviesCollection.getMoviesEntities
 );
-export const getMoviesCollectionTotal = createSelector(
-  selectMoviesCollectionState,
-  fromMovies.getTotal
+
+export const selectSearchResultsState = createSelector(
+  selectMoviesState,
+  (state: MoviesState) => state[fromSearchResults.searchResultsFeatureKey]
 );
-export const getMoviesCollectionIsLoading = createSelector(
-  selectMoviesCollectionState,
-  fromMovies.getIsLoading
+export const getSearchResultsIds = createSelector(
+  selectSearchResultsState,
+  fromSearchResults.getIds
+);
+export const getSearchResults = createSelector(
+  getMoviesCollectionEntities,
+  getSearchResultsIds,
+  (entities, ids) => ids.map(id => entities[id])
+);
+export const getSearchResultsTotal = createSelector(
+  selectSearchResultsState,
+  fromSearchResults.getTotal
+);
+export const getSearchResultsLoading = createSelector(
+  selectSearchResultsState,
+  fromSearchResults.getLoading
 );

@@ -1,47 +1,27 @@
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 
-import {
-  MoviesCollectionApiActions,
-  MoviesCollectionPageActions
-} from '@app/movies/actions';
+import { MoviesCollectionApiActions } from '@app/movies/actions';
 import { Movie } from '@app/movies/models';
 
-export const moviesFeatureKey = 'movies';
+export const moviesCollectionFeatureKey = 'moviesCollection';
 
-export interface State {
-  collection: Movie[];
-  total: number;
-  isLoading: boolean;
-}
+export interface State extends EntityState<Movie> {}
 
-export const initialState: State = {
-  collection: [],
-  total: 0,
-  isLoading: false
-};
+export const adapter: EntityAdapter<Movie> = createEntityAdapter<Movie>({
+  selectId: (movie: Movie) => movie.imdbId,
+  sortComparer: false
+});
+
+export const initialState: State = adapter.getInitialState();
 
 export const reducer = createReducer(
   initialState,
-  on(MoviesCollectionPageActions.loadMovies, state => ({
-    ...state,
-    isLoading: true
-  })),
   on(
     MoviesCollectionApiActions.loadMoviesSuccess,
-    (state, { collection, total }) => ({
-      ...state,
-      collection,
-      total,
-      isLoading: false
-    })
-  ),
-  // TODO: use error?
-  on(MoviesCollectionApiActions.loadMoviesFailure, (state, { error }) => ({
-    ...state,
-    isLoading: false
-  }))
+    (state, { collection: movies }) => adapter.upsertMany(movies, state)
+  )
 );
 
-export const getCollection = (state: State) => state.collection;
-export const getTotal = (state: State) => state.total;
-export const getIsLoading = (state: State) => state.isLoading;
+const { selectEntities } = adapter.getSelectors();
+export const getMoviesEntities = selectEntities;

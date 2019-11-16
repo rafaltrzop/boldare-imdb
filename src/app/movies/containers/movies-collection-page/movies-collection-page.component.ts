@@ -11,9 +11,9 @@ import * as fromMovies from '@app/movies/reducers';
   styleUrls: ['./movies-collection-page.component.scss']
 })
 export class MoviesCollectionPageComponent {
-  isLoading$ = this.store.pipe(select(fromMovies.getMoviesCollectionIsLoading));
-  movies$ = this.store.pipe(select(fromMovies.getMoviesCollection));
-  moviesTotal$ = this.store.pipe(select(fromMovies.getMoviesCollectionTotal));
+  isLoading$ = this.store.pipe(select(fromMovies.getSearchResultsLoading));
+  movies$ = this.store.pipe(select(fromMovies.getSearchResults));
+  moviesTotal$ = this.store.pipe(select(fromMovies.getSearchResultsTotal));
 
   constructor(private store: Store<fromMovies.State>) {}
 
