@@ -39,10 +39,7 @@ export const getToken = createSelector(
   selectAuthStatusState,
   fromAuth.getToken
 );
-export const getLoggedIn = createSelector(
-  getToken,
-  token => !!token
-);
+export const getLoggedIn = createSelector(getToken, token => !!token);
 
 export const selectLoginPageState = createSelector(
   selectAuthState,
@@ -52,7 +49,7 @@ export const getLoginPageError = createSelector(
   selectLoginPageState,
   fromLoginPage.getError
 );
-export const getLoginPagePending = createSelector(
+export const getLoginPageLoading = createSelector(
   selectLoginPageState,
-  fromLoginPage.getPending
+  fromLoginPage.getLoading
 );

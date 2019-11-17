@@ -11,12 +11,12 @@ import * as fromAuth from '@app/auth/reducers';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
-  pending$ = this.store.pipe(select(fromAuth.getLoginPagePending));
+  loading$ = this.store.pipe(select(fromAuth.getLoginPageLoading));
   error$ = this.store.pipe(select(fromAuth.getLoginPageError));
 
   constructor(private store: Store<fromAuth.State>) {}
 
-  onSubmit(credentials: Credentials) {
+  login(credentials: Credentials) {
     this.store.dispatch(LoginPageActions.login({ credentials }));
   }
 }

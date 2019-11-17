@@ -6,13 +6,12 @@ export const loginPageFeatureKey = 'loginPage';
 
 export interface State {
   error: string | null;
-  // TODO: rename to isLoading
-  pending: boolean;
+  loading: boolean;
 }
 
 export const initialState: State = {
   error: null,
-  pending: false
+  loading: false
 };
 
 export const reducer = createReducer(
@@ -20,19 +19,19 @@ export const reducer = createReducer(
   on(LoginPageActions.login, state => ({
     ...state,
     error: null,
-    pending: true
+    loading: true
   })),
   on(AuthApiActions.loginSuccess, state => ({
     ...state,
     error: null,
-    pending: false
+    loading: false
   })),
   on(AuthApiActions.loginFailure, (state, { error: { message } }) => ({
     ...state,
     error: message,
-    pending: false
+    loading: false
   }))
 );
 
 export const getError = (state: State) => state.error;
-export const getPending = (state: State) => state.pending;
+export const getLoading = (state: State) => state.loading;
