@@ -11,6 +11,7 @@ import {
   AuthGuardActions,
   LoginPageActions
 } from '@app/auth/actions';
+import { MovieExistsGuardActions } from '@app/movies/actions';
 
 @Injectable()
 export class AuthEffects {
@@ -39,17 +40,6 @@ export class AuthEffects {
     )
   );
 
-  loginPageRedirect$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthGuardActions.loginPageRedirect, AuthActions.logout),
-        tap(() => {
-          this.router.navigate(['/login']);
-        })
-      ),
-    { dispatch: false }
-  );
-
   logout$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -69,7 +59,29 @@ export class AuthEffects {
           LoginPageActions.homePageRedirect
         ),
         tap(() => {
-          this.router.navigate(['/']);
+          this.router.navigateByUrl('/');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  loginPageRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthGuardActions.loginPageRedirect, AuthActions.logout),
+        tap(() => {
+          this.router.navigateByUrl('/login');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  notFoundPageRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(MovieExistsGuardActions.notFoundPageRedirect),
+        tap(() => {
+          this.router.navigateByUrl('/404');
         })
       ),
     { dispatch: false }

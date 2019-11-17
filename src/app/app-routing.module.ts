@@ -17,8 +17,12 @@ const routes: Routes = [
       import('./movies/movies.module').then(m => m.MoviesModule)
   },
   {
-    path: '**',
+    path: '404',
     component: NotFoundPageComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/404'
   }
 ];
 

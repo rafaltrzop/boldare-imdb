@@ -5,7 +5,10 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { MoviesService } from '@app/movies/services';
-import { MoviesCollectionApiActions } from '@app/movies/actions';
+import {
+  MovieExistsGuardActions,
+  MoviesCollectionApiActions
+} from '@app/movies/actions';
 import * as fromMovies from '@app/movies/reducers';
 
 @Injectable({
@@ -50,7 +53,8 @@ export class MovieExistsGuard implements CanActivate {
       map(movie => !!movie),
       catchError(({ error }) => {
         this.store.dispatch(MoviesCollectionApiActions.loadMovieFailure(error));
-        // TODO: dispatch 404 redirect
+        this.store.dispatch(MovieExistsGuardActions.notFoundPageRedirect());
+
         return of(false);
       })
     );
