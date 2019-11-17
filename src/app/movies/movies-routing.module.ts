@@ -5,6 +5,7 @@ import {
   MovieDetailsPageComponent,
   MoviesCollectionPageComponent
 } from '@app/movies/containers';
+import { MovieExistsGuard } from '@app/movies/guards';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
     component: MoviesCollectionPageComponent
   },
   {
-    path: ':id',
+    path: ':movieId',
+    canActivate: [MovieExistsGuard],
     component: MovieDetailsPageComponent
   }
 ];

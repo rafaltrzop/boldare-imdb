@@ -17,6 +17,9 @@ export const initialState: State = adapter.getInitialState();
 
 export const reducer = createReducer(
   initialState,
+  on(MoviesCollectionApiActions.loadMovieSuccess, (state, { movie }) =>
+    adapter.addOne(movie, state)
+  ),
   on(
     MoviesCollectionApiActions.loadMoviesSuccess,
     (state, { collection: movies }) => adapter.upsertMany(movies, state)

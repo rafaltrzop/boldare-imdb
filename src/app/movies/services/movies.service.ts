@@ -12,6 +12,10 @@ import { environment } from '@env/environment';
 export class MoviesService {
   constructor(private http: HttpClient) {}
 
+  getMovie(id: string): Observable<Movie> {
+    return this.http.get<Movie>(`${environment.apiUrl}/movies/${id}`);
+  }
+
   getMovies({
     limit,
     page,
