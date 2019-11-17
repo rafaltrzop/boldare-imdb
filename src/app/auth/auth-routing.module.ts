@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NotAuthGuard } from '@app/auth/services';
+import { NotAuthGuard } from '@app/auth/guards';
 import { LoginPageComponent } from '@app/auth/containers';
 
 const routes: Routes = [
