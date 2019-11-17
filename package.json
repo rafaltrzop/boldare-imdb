@@ -23,6 +23,7 @@
     "@angular/router": "^8.2.14",
     "@ngrx/effects": "^8.5.1",
     "@ngrx/entity": "^8.5.1",
+    "@ngrx/router-store": "^8.5.1",
     "@ngrx/store": "^8.5.1",
     "@ngrx/store-devtools": "^8.5.1",
     "bootstrap": "^4.3.1",

@@ -3,8 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import 'focus-visible';
 
 import { AuthModule } from '@app/auth';
@@ -14,7 +15,7 @@ import { CoreModule } from '@app/core';
 import { AppComponent } from '@app/core/containers';
 
 import { httpInterceptorProviders } from '@app/core/interceptors';
-import { reducers, metaReducers } from '@app/reducers';
+import { reducers, metaReducers, CustomSerializer } from '@app/reducers';
 import { environment } from '@env/environment';
 
 @NgModule({
@@ -32,6 +33,10 @@ import { environment } from '@env/environment';
         strictStateSerializability: true,
         strictActionSerializability: true
       }
+    }),
+    StoreRouterConnectingModule.forRoot({
+      routerState: RouterState.Minimal,
+      serializer: CustomSerializer
     }),
     StoreDevtoolsModule.instrument({
       name: 'Boldare IMDb',
