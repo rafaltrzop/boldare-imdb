@@ -8,6 +8,7 @@ import {
 import * as fromRoot from '@app/reducers';
 import * as fromMoviesCollection from '@app/movies/reducers/movies-collection.reducer';
 import * as fromSearchResults from '@app/movies/reducers/search-results.reducer';
+import { Movie } from '@app/movies/models';
 
 export const moviesFeatureKey = 'movies';
 
@@ -40,6 +41,12 @@ export const getMoviesCollectionEntities = createSelector(
   selectMoviesCollectionState,
   fromMoviesCollection.getMoviesEntities
 );
+export const getSelectedMovie = createSelector(
+  getMoviesCollectionEntities,
+  fromRoot.selectRouterState,
+  (entities, router): Movie =>
+    router.state && entities[router.state.params.movieId]
+);
 
 export const selectSearchResultsState = createSelector(
   selectMoviesState,
@@ -52,7 +59,7 @@ export const getSearchResultsIds = createSelector(
 export const getSearchResults = createSelector(
   getMoviesCollectionEntities,
   getSearchResultsIds,
-  (entities, ids) => ids.map(id => entities[id])
+  (entities, ids): Movie[] => ids.map(id => entities[id])
 );
 export const getSearchResultsTotal = createSelector(
   selectSearchResultsState,

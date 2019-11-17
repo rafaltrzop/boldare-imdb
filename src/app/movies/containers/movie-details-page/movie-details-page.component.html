@@ -1,2 +1,16 @@
 <h2>Movie details</h2>
-<p>ID: {{ movieId }}</p>
+<ng-container *ngIf="movie$ | async as movie">
+  <p>imdbId: {{ movie.imdbId }}</p>
+  <p>title: {{ movie.title }}</p>
+  <p>director: {{ movie.director }}</p>
+  <p>year: {{ movie.year }}</p>
+  <p>metascore: {{ movie.metascore }}</p>
+  <p>actors:</p>
+  <ul *ngFor="let actor of movie.actors">
+    <li>
+      <p>imdbId: {{ actor.imdbId }}</p>
+      <p>name: {{ actor.name }}</p>
+    </li>
+  </ul>
+  <img [src]="movie.posterUrl" alt="" />
+</ng-container>

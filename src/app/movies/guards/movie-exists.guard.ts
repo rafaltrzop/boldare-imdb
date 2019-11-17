@@ -21,7 +21,6 @@ export class MovieExistsGuard implements CanActivate {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    // TODO: use @ngrx/router-store selector
     const movieId = route.paramMap.get('movieId');
     return this.hasMovie(movieId);
   }

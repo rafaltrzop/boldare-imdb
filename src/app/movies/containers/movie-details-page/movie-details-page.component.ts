@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+
+import * as fromMovies from '@app/movies/reducers';
 
 @Component({
   selector: 'app-movie-details-page',
   templateUrl: './movie-details-page.component.html',
   styleUrls: ['./movie-details-page.component.scss']
 })
-export class MovieDetailsPageComponent implements OnInit {
-  movieId: string;
+export class MovieDetailsPageComponent {
+  movie$ = this.store.pipe(select(fromMovies.getSelectedMovie));
 
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    this.movieId = this.route.snapshot.paramMap.get('movieId');
-  }
+  constructor(private store: Store<fromMovies.State>) {}
 }
