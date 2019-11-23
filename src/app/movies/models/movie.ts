@@ -7,6 +7,6 @@ export interface Movie {
   director: string;
   year: number;
   metascore: number;
-  actors: Actor[];
+  actors: Pick<Actor, 'imdbId' | 'name'>[];
   posterUrl: string;
 }
