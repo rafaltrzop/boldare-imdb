@@ -13,7 +13,10 @@ import {
   MovieDetailsPageComponent,
   MoviesCollectionPageComponent
 } from '@app/movies/containers';
-import { MoviesCollectionComponent } from '@app/movies/components';
+import {
+  MovieDetailsComponent,
+  MoviesCollectionComponent
+} from '@app/movies/components';
 
 @NgModule({
   imports: [
@@ -24,9 +27,10 @@ import { MoviesCollectionComponent } from '@app/movies/components';
     EffectsModule.forFeature([MoviesCollectionEffects])
   ],
   declarations: [
+    MovieDetailsComponent,
     MovieDetailsPageComponent,
-    MoviesCollectionPageComponent,
-    MoviesCollectionComponent
+    MoviesCollectionComponent,
+    MoviesCollectionPageComponent
   ]
 })
 export class MoviesModule {}

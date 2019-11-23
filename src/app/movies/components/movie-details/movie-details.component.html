@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-5 col-lg-4 col-xl-3">
+    <h2>Movie details</h2>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <a
+            class="anchor"
+            href="https://www.imdb.com/title/{{ movie.imdbId }}"
+            target="_blank"
+          >
+            {{ movie.title }}
+          </a>
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ movie.director }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="movie.posterUrl" [alt]="movie.title" />
+      <mat-card-content class="movie-details">
+        <span>
+          Year: <strong>{{ movie.year }}</strong>
+        </span>
+        <span>
+          Metascore: <strong>{{ movie.metascore }}</strong>
+        </span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col-md-7 col-lg-8 col-xl-9">
+    <h2>Actors</h2>
+    <mat-card *ngFor="let actor of movie.actors" class="actor">
+      <mat-card-header>
+        <div
+          mat-card-avatar
+          class="actor__image"
+          [ngStyle]="{
+            backgroundImage: 'url(' + movie.posterUrl + ')'
+          }"
+        ></div>
+        <mat-card-title>
+          <a
+            class="anchor"
+            href="https://www.imdb.com/name/{{ actor.imdbId }}"
+            target="_blank"
+          >
+            {{ actor.name }}
+          </a>
+        </mat-card-title>
+        <!-- TODO: display country -->
+        <mat-card-subtitle class="actor__country">
+          Poland
+        </mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
