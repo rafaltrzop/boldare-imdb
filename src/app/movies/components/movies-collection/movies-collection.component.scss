@@ -8,6 +8,8 @@
 .table {
   position: relative;
   min-height: 160px;
+  overflow: hidden;
+  border-radius: 4px;
   background-color: $color-white;
 
   &__title {

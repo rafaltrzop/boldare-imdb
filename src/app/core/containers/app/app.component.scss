@@ -11,9 +11,9 @@
 
   &__logotype {
     text-decoration: none;
+    outline: none;
     color: $color-white;
     transition: color 0.2s;
-    outline: none;
 
     &.focus-visible {
       color: $color-yellow-500;
