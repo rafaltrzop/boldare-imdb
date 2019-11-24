@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Movie } from '@app/movies/models';
+import { Actor, Movie } from '@app/movies/models';
 
 @Component({
   selector: 'app-movie-details',
@@ -10,4 +10,7 @@ import { Movie } from '@app/movies/models';
 export class MovieDetailsComponent {
   @Input()
   movie: Movie;
+
+  @Input()
+  actors: Actor[];
 }

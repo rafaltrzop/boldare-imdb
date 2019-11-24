@@ -6,7 +6,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { MaterialModule } from '@app/material';
 import { MoviesRoutingModule } from './movies-routing.module';
 
-import { MoviesCollectionEffects } from '@app/movies/effects';
+import {
+  ActorsCollectionEffects,
+  MoviesCollectionEffects
+} from '@app/movies/effects';
 import * as fromMovies from '@app/movies/reducers';
 
 import {
@@ -24,7 +27,7 @@ import {
     MaterialModule,
     MoviesRoutingModule,
     StoreModule.forFeature(fromMovies.moviesFeatureKey, fromMovies.reducers),
-    EffectsModule.forFeature([MoviesCollectionEffects])
+    EffectsModule.forFeature([ActorsCollectionEffects, MoviesCollectionEffects])
   ],
   declarations: [
     MovieDetailsComponent,

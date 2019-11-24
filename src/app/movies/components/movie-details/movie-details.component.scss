@@ -24,10 +24,9 @@
     margin-bottom: 0;
   }
 
-  // TODO: adjust position
   &__image {
     background-size: cover;
-    //background-position: center;
+    background-color: $color-grey-700;
   }
 
   &__country {

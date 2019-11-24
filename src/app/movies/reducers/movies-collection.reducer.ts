@@ -22,7 +22,7 @@ export const reducer = createReducer(
   ),
   on(
     MoviesCollectionApiActions.loadMoviesSuccess,
-    (state, { collection: movies }) => adapter.upsertMany(movies, state)
+    (state, { collection: movies }) => adapter.addMany(movies, state)
   )
 );
 

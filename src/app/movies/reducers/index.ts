@@ -6,14 +6,16 @@ import {
 } from '@ngrx/store';
 
 import * as fromRoot from '@app/reducers';
+import * as fromActorsCollection from '@app/movies/reducers/actors-collection.reducer';
 import * as fromMoviesCollection from '@app/movies/reducers/movies-collection.reducer';
 import * as fromSearchResults from '@app/movies/reducers/search-results.reducer';
-import { Movie } from '@app/movies/models';
+import { Actor, Movie } from '@app/movies/models';
 
 export const moviesFeatureKey = 'movies';
 
 export interface MoviesState {
   [fromMoviesCollection.moviesCollectionFeatureKey]: fromMoviesCollection.State;
+  [fromActorsCollection.actorsCollectionFeatureKey]: fromActorsCollection.State;
   [fromSearchResults.searchResultsFeatureKey]: fromSearchResults.State;
 }
 
@@ -25,6 +27,8 @@ export function reducers(state: MoviesState | undefined, action: Action) {
   return combineReducers({
     [fromMoviesCollection.moviesCollectionFeatureKey]:
       fromMoviesCollection.reducer,
+    [fromActorsCollection.actorsCollectionFeatureKey]:
+      fromActorsCollection.reducer,
     [fromSearchResults.searchResultsFeatureKey]: fromSearchResults.reducer
   })(state, action);
 }
@@ -46,6 +50,25 @@ export const getSelectedMovie = createSelector(
   fromRoot.selectRouterState,
   (entities, router): Movie =>
     router.state && entities[router.state.params.movieId]
+);
+
+export const selectActorsCollectionState = createSelector(
+  selectMoviesState,
+  (state: MoviesState) => state[fromActorsCollection.actorsCollectionFeatureKey]
+);
+export const getActorsCollectionEntities = createSelector(
+  selectActorsCollectionState,
+  fromActorsCollection.getActorsEntities
+);
+export const getSelectedMovieActorsIds = createSelector(
+  getSelectedMovie,
+  (movie): string[] => (movie ? movie.actors.map(actor => actor.imdbId) : [])
+);
+export const getSelectedMovieActors = createSelector(
+  getActorsCollectionEntities,
+  getSelectedMovieActorsIds,
+  (entities, ids): Actor[] =>
+    ids.map(id => entities[id]).filter(actor => actor !== undefined)
 );
 
 export const selectSearchResultsState = createSelector(
