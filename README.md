@@ -47,7 +47,13 @@ Visual Studio Code:
 
 - Go to `File > Preferences > Settings > Extensions > Prettier - Code formatter`
 
-  Turn on `Prettier: Tslint Integration` checkbox.
+  Turn on `Prettier: Tslint Integration` checkbox. If you can't find this checkbox, use `Ctrl + Shift + P` shortcut to find `Preferences: Open Settings (JSON)` option. Add below line to your settings file:
+
+  ```
+  {
+      "prettier.tslintIntegration": true
+  }
+  ```
 
 - Go to `File > Preferences > Settings > Text Editor > Formatting`
 
